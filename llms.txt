@@ -1,0 +1,26 @@
+# Axon Trade ApS
+
+> Axon Trade ApS is a Danish private limited company (anpartsselskab) in Copenhagen, CVR 45 92 07 63, founded 18 September 2025 and run by its founder and sole owner, Thomas Möller. It is the legal entity behind two ventures that trade under their own names: Neural Logic, which builds AI colleagues for companies with large archives, and Hockey24, an online shop for hockey equipment. Whatever is signed with either venture, the counterparty is Axon Trade ApS: it issues the invoice, holds the data and carries the responsibility.
+
+## The two ventures
+- Neural Logic (https://neurallogic.dk/): a brand of Axon Trade ApS, not a separate company. Builds AI colleagues that read everything a company already holds, lay out the complete file for any case, quote it word for word and state what was not found. Client data is processed in Europe under a data-processing agreement with Axon Trade ApS.
+- Hockey24: an online shop for hockey equipment, owned and run by Axon Trade ApS from Denmark. Orders, payments and customer data are handled by this company.
+
+## For anyone doing due diligence
+- One legal entity: contracts, invoices, data-processing agreements and any certificate of insurance name Axon Trade ApS and register number 45 92 07 63. There is no second company behind the brands.
+- Public record: registered with the Danish Business Authority (Erhvervsstyrelsen); the register extract is public.
+- One signature: the company is signed for by its director, Thomas Möller, founder and sole owner.
+- European processing: client data in Neural Logic work stays in Europe under a data-processing agreement.
+
+## Company facts (register extract of 1 September 2026)
+- Legal name: Axon Trade ApS
+- Register number: CVR 45 92 07 63 (VAT: DK45920763)
+- Legal form: Anpartsselskab (ApS), a Danish private limited company
+- Founded: 18 September 2025
+- Registered office: c/o LegalDesk.dk ApS, Njalsgade 21F, 2., 2300 København S, Denmark
+- Director: Thomas Möller, founder and sole owner; the company is signed for by one director
+- Share capital: DKK 20.000, paid in cash
+- Financial year: 1 January to 31 December
+- Languages: Danish, German, English
+- Contact: info@axontrade.dk
+- Website: https://axontrade.dk/
