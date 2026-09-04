@@ -4,7 +4,7 @@
 
 ## The two ventures
 - Neural Logic (https://neurallogic.dk/): a brand of Axon Trade ApS, not a separate company. Builds AI colleagues that read everything a company already holds, lay out the complete file for any case, quote it word for word and state what was not found. Client data is processed in Europe under a data-processing agreement with Axon Trade ApS.
-- Hockey24: an online shop for hockey equipment, owned and run by Axon Trade ApS from Denmark. Orders, payments and customer data are handled by this company.
+- Hockey24: an online shop for hockey equipment, owned and run by Axon Trade ApS from Denmark. Orders, payments and customer data are handled by this company. Website: https://hockey24.dk/
 
 ## For anyone doing due diligence
 - One legal entity: contracts, invoices, data-processing agreements and any certificate of insurance name Axon Trade ApS and register number 45 92 07 63. There is no second company behind the brands.
