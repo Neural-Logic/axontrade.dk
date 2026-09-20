@@ -259,7 +259,7 @@ html:not(.js) .tree path{stroke-dashoffset:0}html:not(.js) .tree .dot{opacity:1}
 
 </main>
 
-<footer class="foot"><div class="wrap"><span>© 2026 Axon Trade ApS · CVR 45 92 07 63 · København</span><span>Neural Logic is a brand of Axon Trade ApS · Hockey24 is operated by Axon Trade ApS</span></div></footer>
+<footer class="foot"><div class="wrap"><span>© Axon Trade ApS · CVR 45 92 07 63 · København</span><span>Neural Logic is a brand of Axon Trade ApS · Hockey24 is operated by Axon Trade ApS</span></div></footer>
 
 <script>
 (function () {
@@ -267,6 +267,26 @@ html:not(.js) .tree path{stroke-dashoffset:0}html:not(.js) .tree .dot{opacity:1}
   if (!('IntersectionObserver' in window)) { Array.prototype.forEach.call(els, function (e) { e.classList.add('on'); }); return; }
   var io = new IntersectionObserver(function (es) { es.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add('on'); io.unobserve(e.target); } }); }, { rootMargin: '0px 0px -8% 0px', threshold: 0.12 });
   Array.prototype.forEach.call(els, function (e) { io.observe(e); });
+})();
+</script>
+<!-- Visitor counter, our own and cookieless: sends the page path, the referring site and the browser
+     language to our own brain. No cookie, no identifier, no IP address stored; nothing personal, so the
+     page needs no consent banner. Source: Supabase edge function web-hit. -->
+<script>
+(function () {
+  try {
+    var site = location.hostname.replace(/^www\./, '');
+    if (site !== 'neurallogic.dk' && site !== 'axontrade.dk') return;
+    var first = false;
+    try { if (!sessionStorage.getItem('nl_seen')) { sessionStorage.setItem('nl_seen', '1'); first = true; } } catch (e) {}
+    var ref = '';
+    try { if (document.referrer) ref = new URL(document.referrer).hostname; } catch (e) {}
+    var body = JSON.stringify({ site: site, path: location.pathname, ref: ref,
+      lang: (navigator.language || '').slice(0, 12), first: first });
+    var url = 'https://xwdyziighsmwgbxukezb.supabase.co/functions/v1/web-hit';
+    if (navigator.sendBeacon) navigator.sendBeacon(url, new Blob([body], { type: 'text/plain' }));
+    else fetch(url, { method: 'POST', body: body, keepalive: true }).catch(function () {});
+  } catch (e) {}
 })();
 </script>
 </body>
