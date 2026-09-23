@@ -1,6 +1,7 @@
 {
-  "_note": "Languages the build generates and links. Lead: German and Danish for axontrade.dk requested 23 September 2026; released here once he has read them.",
+  "_note": "Languages the build generates and links. Lead: German released 23 September 2026; Danish waits for his review and for the Danish neurallogic.dk (the Danish page links to it).",
   "languages": [
-    "en"
+    "en",
+    "de"
   ]
 }
