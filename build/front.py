@@ -102,17 +102,44 @@ def main() -> None:
     if check:
         return
 
+    # --preview <dir>: render every written language into <dir> for a review round, released or not.
+    preview = pathlib.Path(sys.argv[sys.argv.index("--preview") + 1]) if "--preview" in sys.argv else None
     for lang in LANGS:
         if not (FRONT / f"strings.{lang}.json").exists():
             print(f"skipped {lang}: no strings file yet")
             continue
-        if lang not in published():
+        if preview is not None:
+            target = preview / lang / "index.html" if lang != "en" else preview / "index.html"
+        elif lang not in published():
             print(f"skipped {lang}: written but not released (build/published.json)")
             continue
-        target = OUTPUT[lang]
+        else:
+            target = OUTPUT[lang]
         target.parent.mkdir(parents=True, exist_ok=True)
-        target.write_text(render(lang), encoding="utf-8")
-        print("wrote", target.relative_to(ROOT))
+        html = render(lang)
+        check_links(html, lang, fatal=preview is None)
+        target.write_text(html, encoding="utf-8")
+        print("wrote", target)
+
+
+def check_links(html: str, lang: str, fatal: bool = True) -> None:
+    """Every link into our own two sites must answer: on 20 September a chooser shipped pointing
+    at two pages that did not exist. Checked live, before the file is written."""
+    import re
+    import urllib.request
+    own = set(HOME.values())   # this site's own language homes: their existence is governed by published.json
+    for url in sorted(set(re.findall(r'href="(https://(?:neurallogic|axontrade)\.dk/[^"]*)"', html)) - own):
+        try:
+            req = urllib.request.Request(url, method="HEAD", headers={"User-Agent": "axontrade-build"})
+            code = urllib.request.urlopen(req, timeout=10).status
+        except urllib.error.HTTPError as e:
+            code = e.code
+        except Exception as e:  # noqa: BLE001
+            sys.exit(f"ERROR: {lang}: could not check {url}: {e}")
+        if code != 200:
+            if fatal:
+                sys.exit(f"ERROR: {lang}: the page links to {url}, which answers {code}. Not written.")
+            print(f"WARNING (preview only): {lang} links to {url}, which answers {code}")
 
 
 if __name__ == "__main__":
