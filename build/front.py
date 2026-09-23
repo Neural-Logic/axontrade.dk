@@ -24,6 +24,8 @@ LANGS = ["en", "de", "da"]
 # Where each language's front page lives, and what the chooser calls it.
 HOME = {"en": "https://axontrade.dk/", "de": "https://axontrade.dk/de/", "da": "https://axontrade.dk/da/"}
 LABEL = {"en": "EN", "de": "DE", "da": "DA"}
+# The sister site, per language; check_links falls back to the English root while a version is not live.
+NL_HOME = {"en": "https://neurallogic.dk/", "de": "https://neurallogic.dk/de/", "da": "https://neurallogic.dk/da/"}
 OUTPUT = {"en": ROOT / "index.html", "de": ROOT / "de" / "index.html", "da": ROOT / "da" / "index.html"}
 TOKEN = re.compile(r"\{\{t\.([A-Za-z0-9_]+)\}\}")
 
@@ -76,6 +78,7 @@ def render(lang: str) -> str:
     out = out.replace("{{langswitch}}", langswitch(lang))
     out = out.replace("{{canonical}}", head_links(lang))
     out = out.replace("{{ogurl}}", HOME[lang])
+    out = out.replace("{{nl_home}}", NL_HOME[lang])
     out = out.replace('<html lang="en">', f'<html lang="{lang}">')
     if "{{" in out:
         leftover = re.findall(r"\{\{[^}]{0,40}\}\}", out)
@@ -116,17 +119,22 @@ def main() -> None:
         else:
             target = OUTPUT[lang]
         target.parent.mkdir(parents=True, exist_ok=True)
-        html = render(lang)
-        check_links(html, lang, fatal=preview is None)
+        html = check_links(render(lang), lang, fatal=preview is None)
         target.write_text(html, encoding="utf-8")
         print("wrote", target)
 
 
-def check_links(html: str, lang: str, fatal: bool = True) -> None:
+# Where a link may land while its real target is not live yet (checked at every build).
+FALLBACK = {"https://neurallogic.dk/da/": "https://neurallogic.dk/"}
+
+
+def check_links(html: str, lang: str, fatal: bool = True) -> str:
     """Every link into our own two sites must answer: on 20 September a chooser shipped pointing
-    at two pages that did not exist. Checked live, before the file is written."""
+    at two pages that did not exist. Checked live, before the file is written. Returns the html,
+    with any FALLBACK substitution applied."""
     import re
     import urllib.request
+    html_out: list = []
     own = set(HOME.values())   # this site's own language homes: their existence is governed by published.json
     for url in sorted(set(re.findall(r'href="(https://(?:neurallogic|axontrade)\.dk/[^"]*)"', html)) - own):
         try:
@@ -137,9 +145,18 @@ def check_links(html: str, lang: str, fatal: bool = True) -> None:
         except Exception as e:  # noqa: BLE001
             sys.exit(f"ERROR: {lang}: could not check {url}: {e}")
         if code != 200:
+            if url in FALLBACK:
+                # A sister page that is not live yet: link to the page that is, and say so.
+                # The next build after the sister goes live picks the right address up by itself.
+                print(f"NOTE: {lang}: {url} answers {code}; linking to {FALLBACK[url]} until it is live")
+                html_out.append((url, FALLBACK[url]))
+                continue
             if fatal:
                 sys.exit(f"ERROR: {lang}: the page links to {url}, which answers {code}. Not written.")
             print(f"WARNING (preview only): {lang} links to {url}, which answers {code}")
+    for url, alt in html_out:
+        html = html.replace(f'href="{url}"', f'href="{alt}"')
+    return html
 
 
 if __name__ == "__main__":

@@ -23,4 +23,4 @@
 - Financial year: 1 January to 31 December
 - Languages: Danish, German, English
 - Contact: info@axontrade.dk
-- Website: https://axontrade.dk/ (English) · https://axontrade.dk/de/ (German)
+- Website: https://axontrade.dk/ (English) · https://axontrade.dk/de/ (German) · https://axontrade.dk/da/ (Danish)

@@ -1,7 +1,8 @@
 {
-  "_note": "Languages the build generates and links. Lead: German released 23 September 2026; Danish waits for his review and for the Danish neurallogic.dk (the Danish page links to it).",
+  "_note": "Languages the build generates and links. Lead: German released 23 September 2026, Danish released 23 September 2026 (the Danish tree links to neurallogic.dk until its Danish version is live; the build swaps the link by itself once it answers).",
   "languages": [
     "en",
-    "de"
+    "de",
+    "da"
   ]
 }
