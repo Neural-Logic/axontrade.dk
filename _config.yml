@@ -1,0 +1,7 @@
+# GitHub Pages runs its site builder (Jekyll) on this repository only to leave the build
+# machinery out of the published site: build scripts and unreleased text stay in the
+# repository and are no longer served on axontrade.dk (Lead GO, 24 September 2026).
+# No page here has front matter, so every page is published byte for byte as before.
+exclude:
+  - build
+  - _config.yml
